@@ -34,7 +34,7 @@ const Login = () => {
         .then((res) => {
           localStorage.setItem("token", res.data.access_token);
           Swal.fire('Berhasil!', 'Anda Telah Berhasil Login!', 'success');
-          history.push('comingsoon');
+          history.push('Aletha Davis');
         })
         .catch((error) => {
           Swal.fire({

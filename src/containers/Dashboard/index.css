@@ -1,0 +1,83 @@
+.hijau{
+	background-color:rgba(248, 255, 255, 1);
+}
+
+.hijautua{
+	background-color:rgb(34, 139, 35);
+}
+
+.margin-top{
+	margin-top: 20px;
+}
+
+.margin5{
+	margin-top: 10px;
+}
+
+.margin-top40{
+	margin-top: 70px;
+}
+
+
+.margin-left{
+	margin-left: 10px;
+}
+
+.margin-left5{
+  margin-left: 4px;
+}
+
+.padding0{
+  padding-right: 0;
+  padding-left: 15px;
+}
+
+.width{
+  width: 900px;
+}
+
+.size{
+  font-size: 12px;
+}
+
+.size9{
+  font-size: 11px;
+}
+
+.margin-left20{
+	margin-left: 25px;
+}
+
+.margin-right20{
+	margin-right: 20px;
+}
+
+.padding{
+	padding: 25px 25px;
+}
+
+.card-header {
+  position: relative;
+  height: 110px;
+  background-image: url("https://cdn.techinasia.com/data/images/5fa3999badf25b47b128fdf6153387b0.png");
+}
+
+.card-img {
+  position: absolute;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  width: 100px; height: 100px;
+  transform: translateY(50%);
+  box-shadow: 0 0 0 10px #fff;
+}
+
+.white{
+  color:white;
+}
+
+.size{
+  width: 150%;
+}

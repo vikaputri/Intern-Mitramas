@@ -1,0 +1,21 @@
+
+
+.add{
+  margin-bottom: 35px;
+}
+
+a.nav-link a:hover {
+  background-color: transparent;
+}
+
+a.nav-link.active a {
+  color: #fff;
+}
+
+a.nav-link.active a:hover {
+  background-color: transparent;
+}
+
+.nav-link.active, .nav-link.active:focus, .nav-link.active:hover {
+  background-color: #a8a8a7;
+}
