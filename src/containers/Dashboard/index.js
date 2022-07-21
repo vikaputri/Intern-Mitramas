@@ -15,7 +15,7 @@ function Dashboard() {
         <div className="col-sm-1 padding0">
           <Sidebar />
         </div>
-        <div class="col-sm-11 hijau">
+        <div className="col-sm-11 hijau">
           <Topbar />
             <div className="row margin-top margin-left">
               <About/>

@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import Footer from "./components/Footer";
-import ComingSoon from "./containers/ComingSoon";
 import Login from "./containers/Login";
 import Dashboard from "./containers/Dashboard";
 import Home from "./containers/Home";
-
+import Edit from "./containers/Edit";
+import Create from "./containers/Create";
 
 function App() {
   return (
@@ -13,7 +13,9 @@ function App() {
         <Switch>
           <Route path="/home" component={Home} exact />
           <Route path="/" component={Login} exact />
+          <Route path="/edit/:id" component={Edit} exact />
           <Route path="/dashboard" component={Dashboard} exact />
+          <Route path="/create" element={Create} exact/>
         </Switch>
         <Footer/>
       </div>

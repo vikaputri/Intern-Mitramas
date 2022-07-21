@@ -9,15 +9,16 @@ const Login = () => {
   const [login, setLogin] = useState({ email: '', password: '' });
   const history = useHistory();
   const [emailError, setEmailError] = useState({ message: '', status: false });
+
   const handleChange = (e, type) => {
     if (type === 'email') {
       if (validator.isEmail(e.target.value)) {
-        setEmailError({ message: 'Email sudah benar', status: true });
+        setEmailError({ message: 'Email is Correct', status: true });
       } else {
         if (e.target.value === '') {
-          setEmailError({ message: 'Email tidak boleh kosong', status: false });
+          setEmailError({ message: 'Email Cannot be Empty', status: false });
         } else {
-          setEmailError({ message: 'Email harus lengkap', status: false });
+          setEmailError({ message: 'Email Must be Complete', status: false });
         }
       }
       setLogin({ ...login, email: e.target.value });
@@ -33,8 +34,8 @@ const Login = () => {
         .post(Url, login)
         .then((res) => {
           localStorage.setItem("token", res.data.access_token);
-          Swal.fire('Berhasil!', 'Anda Telah Berhasil Login!', 'success');
-          history.push('Aletha Davis');
+          Swal.fire('Success!', 'Login Success!', 'success');
+          history.push('home');
         })
         .catch((error) => {
           Swal.fire({
@@ -55,18 +56,18 @@ const Login = () => {
   };
   
   return (	
-    <section class="py-5 mb-5 mt-5">
-      <div class="container px-5">
-        <div class="row justify-content-center">
-          <div class="col-lg-6">
-            <div class="bg-info text-white"> 
-              <form class="py-5 px-5" onSubmit={handleSubmit}>
-                <h2 class="text-center mb-5">Login</h2> 
-                  <div class="mb-3">
+    <section className="py-5 mb-5 mt-5">
+      <div className="container px-5">
+        <div className="row justify-content-center">
+          <div className="col-lg-6">
+            <div className="bg-info text-white"> 
+              <form className="py-5 px-5" onSubmit={handleSubmit}>
+                <h2 className="text-center mb-5">Login</h2> 
+                  <div className="mb-3">
                     <input 
                       type="email" 
                       placeholder="Email" 
-                      class="form-control mb-1"
+                      className="form-control mb-1"
                       onChange={(e) => handleChange(e, 'email')}
                     />
                     <p className={`mb-0 text-sm ${emailError.status ? 'text-white' : 'text-pink-danger'}`}>
@@ -76,12 +77,12 @@ const Login = () => {
                   <input 
                     type="password" 
                     placeholder="Password" 
-                    class="form-control mb-3"
+                    className="form-control mb-3"
                     onChange={(e) => handleChange(e, 'password')}
                   />
                   <input
                     type="submit" 
-                    class="form-control btn btn-light mb-3" 
+                    className="form-control btn btn-light mb-3" 
                     value="Login"
                   />
               </form>

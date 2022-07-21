@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from 'react-router-dom';
 import { GroupOutlined, LocationCityOutlined, HomeOutlined } from "@material-ui/icons";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -7,12 +8,20 @@ import PublicIcon from '@mui/icons-material/Public';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
-
 function Home() {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState();
   const token = localStorage.getItem('token');
+  const history = useHistory();
+
+  const handleChange = (e) => {
+    setSearch(e.target.value);
+  };
+
+  const Change = (e) => {
+    setStatus(e.target.value);
+  };
 
   useEffect(() => {
     const getApi = async () => {
@@ -25,7 +34,6 @@ function Home() {
           })
           .then((res) => {
             setData(res.data.data);
-            console.log('oke')
           });
       } catch (error) {
         console.log(error);
@@ -34,7 +42,7 @@ function Home() {
     getApi();
   }, []);
 
-  let deleteUser = (id_user) => {
+  const deleteUser = (id_user) => {
     axios.delete("https://mitramas-test.herokuapp.com/customers",{
       headers: {
         Authorization :token
@@ -44,8 +52,8 @@ function Home() {
       }
     }).then((res)=> {
       Swal.fire({
-        title: 'Account deleted.',
-        text: 'deleted user successfully',
+        title: 'Success',
+        text: 'Data Deleted Successfully',
         icon: 'success',
         confirmButtonText: 'Back',
       });
@@ -60,40 +68,49 @@ function Home() {
     }
   }, [status])
 
+  const editUser = (id_user) => {
+    history.push(`/edit/${id_user}`);
+  };
+
 
   const filterActive = data.filter((data) => data.status === true);
   const filterInactive = data.filter((data) => data.status === false);
 
   return (
-    <section class="py-5">
-      <div class="container px-5">
+    <section className="py-5">
+      <div className="container px-5">
 
-        <div class="d-flex bd-highlight mb-3">
-          <div class="me-auto bd-highlight">
-            <form class="d-flex">
-              <input class="form-control me-"  placeholder="Cari Nama" onChange={(event) => setSearch(event.target.value)}/>
+        <div className="d-flex bd-highlight mb-3">
+          <div className="me-auto bd-highlight">
+            <form className="d-flex">
+              <input className="form-control"
+                placeholder="Cari Nama" 
+                onChange={handleChange}/>
             </form>
           </div>
-          <div class="p-2 bd-highlight">
-            <select class="form-select" onChange={(event) => setStatus(event.target.value)}>
+          <div className="p-2 bd-highlight">
+            <select className="form-select" onChange={Change}>
               <option selected>Status User</option>
-              <option value="1">Activate</option>
-              <option value="2">Non Activate</option>
+              <option value="Aktif">Activate</option>
+              <option value="Tidak Aktif">Non Activate</option>
             </select>
           </div>
-          <div class="p-2 bd-highlight">
-            <button type="button" class="btn btn-primary">Create</button>
+          <div className="p-2 bd-highlight">
+            <button 
+              type="button"
+              className="btn btn-primary" 
+              onClick={() => history.push('/create')}>Create</button>
           </div>
         </div>
 
         <div className="row">
-          <div class="col">
-            <div class="card text-dark bg-light mb-3">
-              <div class="card-body row">
-                <div class="col-2">
+          <div className="col">
+            <div className="card text-dark bg-light mb-3">
+              <div className="card-body row">
+                <div className="col-2">
                   <GroupOutlined className="sidebarIcon" />
                 </div>
-                <div class="col">
+                <div className="col">
                   <span>Customers Total</span>
                   <p>{data.length}</p>
                 </div>
@@ -101,13 +118,13 @@ function Home() {
             </div>
           </div>
 
-          <div class="col">
-            <div class="card text-dark bg-light mb-3">
-              <div class="card-body row">
-                <div class="col-2">
+          <div className="col">
+            <div className="card text-dark bg-light mb-3">
+              <div className="card-body row">
+                <div className="col-2">
                   <GroupOutlined className="sidebarIcon" />
                 </div>
-                <div class="col">
+                <div className="col">
                   <span>Customers Activate</span>
                   <p>{filterActive.length}</p>
                 </div>
@@ -115,13 +132,13 @@ function Home() {
             </div>
           </div>
 
-          <div class="col">
-            <div class="card text-dark bg-light mb-3">
-              <div class="card-body row">
-                <div class="col-2">
+          <div className="col">
+            <div className="card text-dark bg-light mb-3">
+              <div className="card-body row">
+                <div className="col-2">
                   <GroupOutlined className="sidebarIcon" />
                 </div>
-                <div class="col">
+                <div className="col">
                   <span>Customers Inactive</span>
                   <p>{filterInactive.length}</p>
                 </div>
@@ -131,37 +148,40 @@ function Home() {
         </div>
 
         <div className="row">
-          {search ? data.filter((v) => v.name === search ).sort((a, b) => (a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1)).map((v) => (
-          <div class="col-4">
-            <div class="card text-dark bg-light mb-3">
-              <div class="card-body">
+          {search ? data.filter((v) => v.name === search ).sort((a, b) => 
+            (a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1)).map((v) => (
+          <div className="col-4">
+            <div className="card text-dark bg-light mb-3">
+              <div className="card-body">
 
-                <div class="d-flex bd-highlight mb-3">
-                  <div class="me-auto p-2 bd-highlight">{v.name}</div>
-                  <div class="p-2 bd-highlight">
-                    <EditIcon className="sidebarIcon" />
+                <div className="d-flex bd-highlight mb-3">
+                  <div className="me-auto p-2 bd-highlight">{v.name}</div>
+                  <div className="p-2 bd-highlight">
+                    <EditIcon className="sidebarIcon" 
+                      onClick={() => editUser(v.id)}/>
                   </div>
-                  <div class="p-2 bd-highlight">
-                    <DeleteIcon className="sidebarIcon" onClick={() => deleteUser(v.id)}/>
+                  <div className="p-2 bd-highlight">
+                    <DeleteIcon className="sidebarIcon" 
+                      onClick={() => deleteUser(v.id)}/>
                   </div>
                 </div>
 
-                <div class="px-2"> 
+                <div className="px-2"> 
                   {v.status ? 
-                    (<button type="button" class="btn btn-primary mb-3">Aktif</button>) : 
-                    (<button type="button" class="btn btn-danger mb-3">Tidak Aktif</button>)
+                    (<button type="button" className="btn btn-primary mb-3">Activate</button>) : 
+                    (<button type="button" className="btn btn-danger mb-3">Non Activate</button>)
                   }
 
-                  <div class="mb-3">
+                  <div className="mb-3">
                     <HomeOutlined  className="sidebarIcon" /> &nbsp; {v.address}
                   </div>
-                  <div class="mb-3">
+                  <div className="mb-3">
                     <PublicIcon className="sidebarIcon" /> &nbsp;{v.country}
                   </div>
-                  <div class="mb-3">
+                  <div className="mb-3">
                     <PhoneIcon className="sidebarIcon" /> &nbsp;{v.phone_number}
                   </div>
-                  <div class="mb-3">
+                  <div className="mb-3">
                     <LocationCityOutlined className="sidebarIcon" /> &nbsp;{v.job_title}
                   </div>                
                   
@@ -172,37 +192,40 @@ function Home() {
           </div>
 
 
-          )): status !== undefined? data.filter((v)=> v.status === status).sort((a, b) => (a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1)).map((v) => (
-          <div class="col-4">
-            <div class="card text-dark bg-light mb-3">
-              <div class="card-body">
+          )): status !== undefined? data.filter((v)=> v.status === status).sort((a, b) => 
+            (a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1)).map((v) => (
+          <div className="col-4">
+            <div className="card text-dark bg-light mb-3">
+              <div className="card-body">
 
-                <div class="d-flex bd-highlight mb-3">
-                  <div class="me-auto p-2 bd-highlight">{v.name}</div>
-                  <div class="p-2 bd-highlight">
-                    <EditIcon className="sidebarIcon" />
+                <div className="d-flex bd-highlight mb-3">
+                  <div className="me-auto p-2 bd-highlight">{v.name}</div>
+                  <div className="p-2 bd-highlight">
+                    <EditIcon className="sidebarIcon" 
+                      onClick={() => editUser(v.id)}/>
                   </div>
-                  <div class="p-2 bd-highlight">
-                    <DeleteIcon className="sidebarIcon" onClick={() => deleteUser(v.id)}/>
+                  <div className="p-2 bd-highlight">
+                    <DeleteIcon className="sidebarIcon" 
+                      onClick={() => deleteUser(v.id)}/>
                   </div>
                 </div>
 
-                <div class="px-2"> 
+                <div className="px-2"> 
                   {v.status ? 
-                    (<button type="button" class="btn btn-primary mb-3">Aktif</button>) : 
-                    (<button type="button" class="btn btn-danger mb-3">Tidak Aktif</button>)
+                    (<button type="button" className="btn btn-primary mb-3">Activate</button>) : 
+                    (<button type="button" className="btn btn-danger mb-3">Non Activate</button>)
                   }
 
-                  <div class="mb-3">
+                  <div className="mb-3">
                     <HomeOutlined  className="sidebarIcon" /> &nbsp; {v.address}
                   </div>
-                  <div class="mb-3">
+                  <div className="mb-3">
                     <PublicIcon className="sidebarIcon" /> &nbsp;{v.country}
                   </div>
-                  <div class="mb-3">
+                  <div className="mb-3">
                     <PhoneIcon className="sidebarIcon" /> &nbsp;{v.phone_number}
                   </div>
-                  <div class="mb-3">
+                  <div className="mb-3">
                     <LocationCityOutlined className="sidebarIcon" /> &nbsp;{v.job_title}
                   </div>                
                   
@@ -212,38 +235,40 @@ function Home() {
             </div>
           </div>
 
+          )) : data.sort((a, b) => 
+            (a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1)).map((v) => (
+          <div className="col-4">
+            <div className="card text-dark bg-light mb-3">
+              <div className="card-body">
 
-          )) : data.sort((a, b) => (a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1)).map((v) => (
-          <div class="col-4">
-            <div class="card text-dark bg-light mb-3">
-              <div class="card-body">
-
-                <div class="d-flex bd-highlight mb-3">
-                  <div class="me-auto p-2 bd-highlight">{v.name}</div>
-                  <div class="p-2 bd-highlight">
-                    <EditIcon className="sidebarIcon" />
+                <div className="d-flex bd-highlight mb-3">
+                  <div className="me-auto p-2 bd-highlight">{v.name}</div>
+                  <div className="p-2 bd-highlight">
+                    <EditIcon className="sidebarIcon" 
+                      onClick={() => editUser(v.id)}/>
                   </div>
-                  <div class="p-2 bd-highlight">
-                    <DeleteIcon className="sidebarIcon" onClick={() => deleteUser(v.id)}/>
+                  <div className="p-2 bd-highlight">
+                    <DeleteIcon className="sidebarIcon" 
+                      onClick={() => deleteUser(v.id)}/>
                   </div>
                 </div>
 
-                <div class="px-2"> 
+                <div className="px-2"> 
                   {v.status ? 
-                    (<button type="button" class="btn btn-primary mb-3">Aktif</button>) : 
-                    (<button type="button" class="btn btn-danger mb-3">Tidak Aktif</button>)
+                    (<button type="button" className="btn btn-primary mb-3">Activate</button>) : 
+                    (<button type="button" className="btn btn-danger mb-3">Non Activate</button>)
                   }
 
-                  <div class="mb-3">
+                  <div className="mb-3">
                     <HomeOutlined  className="sidebarIcon" /> &nbsp; {v.address}
                   </div>
-                  <div class="mb-3">
+                  <div className="mb-3">
                     <PublicIcon className="sidebarIcon" /> &nbsp;{v.country}
                   </div>
-                  <div class="mb-3">
+                  <div className="mb-3">
                     <PhoneIcon className="sidebarIcon" /> &nbsp;{v.phone_number}
                   </div>
-                  <div class="mb-3">
+                  <div className="mb-3">
                     <LocationCityOutlined className="sidebarIcon" /> &nbsp;{v.job_title}
                   </div>                
                   
