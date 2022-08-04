@@ -15,7 +15,7 @@ Bootstrap
 
 
 ## Run
-Vhiweb dapat diakses melalui link [https://intern-mitramas.vercel.app/]([[https://vhi-web.vercel.app/](https://intern-mitramas.vercel.app/)]) dengan memasukkan
+Vhiweb dapat diakses melalui link [https://intern-mitramas.vercel.app/](https://intern-mitramas.vercel.app/) dengan memasukkan
 
 email       : akun17@mig.id
 
