@@ -2,8 +2,6 @@
 
 ## Functional Specification
 
-Vhiweb memiliki 3 halaman utama yaitu
-
 ### Login 
 Halaman login merupakan halaman yang menampilkan form login yang berisi email dan password
 
