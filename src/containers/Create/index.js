@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import {useState } from "react";
 import { useHistory } from 'react-router-dom';
 import axios from "axios";
 import Swal from 'sweetalert2';
@@ -14,23 +14,14 @@ function Create() {
   const token = localStorage.getItem("token");
 
   const filterStatus = () => {
-    if (status.toString() === "Aktif") {
+    console.log(status)
+    if (status === "Aktif") {
       return true;
-    } else if (status.toString() === "Tidak Aktif") {
+    } else if (status === "Tidak Aktif") {
       return false;
     }
   }
   
-
-  const userEdit = [];
-  userEdit.push({
-    name: name,
-    address: address,
-    country: country,
-    phone_number: phoneNumber,
-    job_title: job,
-  });
-
   const handleSubmit = () => {
     axios
       .post(
@@ -64,11 +55,10 @@ function Create() {
           icon: 'error',
           confirmButtonText: 'Try Again',
         });
-        console.log(error)
       });
   };
 
-  const option = ["Aktif", "Tidak Aktif"];
+  const option = ["Status User","Aktif", "Tidak Aktif"];
 
   return (
      <section className="py-5">
@@ -129,8 +119,8 @@ function Create() {
                     <label className="col-sm-2 col-form-label">Status</label>
                     <div className="col-sm-10">
                         <select className="form-select"
-                          placeholder="Select Option"
-                          onChange={(event) => setStatus(event.target.value)}>
+                          onChange={(event) => setStatus(event.target.value)}
+                        >
                           {option.map((v) => (
                             <option>{v}</option>
                           ))}
